@@ -13,8 +13,14 @@ edinet_xbrl_object = parser.parse_file(xbrl_file_path)
 
 # 1e
 # https://www.fsa.go.jp/search/20190228.html
+# for key in edinet_xbrl_object.get_keys():
+#     values = []
+#     for value in edinet_xbrl_object.get_data_list(key):
+#         values.append(value.get_value())
+#     print(key, values)
+
 for key in edinet_xbrl_object.get_keys():
-    values = []
     for value in edinet_xbrl_object.get_data_list(key):
-        values.append(value.get_value())
-    print(key, values)
+        v_str = value.get_value()
+        if "対処すべき課題" in str(v_str):
+            print(key, v_str)
