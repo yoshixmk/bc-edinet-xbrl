@@ -17,3 +17,7 @@ I placed the source code directly here.
 ## parse(plan)
 - Convert Xbrl to Csv by Edinet.(jre8 latest only)
 - https://disclosure.edinet-fsa.go.jp/E01NW/download/ESE140131.pdf
+
+## importing(plan)
+- First, edinetcode list
+- http://disclosure.edinet-fsa.go.jp/ > ダウンロード > EDINETタクソノミ及びコードリスト > EDINETコードリスト 
