@@ -1,38 +1,48 @@
 from edinet_xbrl.edinet_xbrl_parser import EdinetXbrlParser
 
+# 資料
+## 1e：タクソノミ要素リスト
+## https://www.fsa.go.jp/search/20190228.html
+
+# parse
+
 ## init parser
 parser = EdinetXbrlParser()
 
+## target
+xbrl_file_path = "C:\\edinet_xbrl\\xbrl\\jpcrp030000-asr-001_E01777-000_2019-03-31_02_2019-08-01.xbrl"
+edinet_xbrl_object = parser.parse_file(xbrl_file_path)
+
 ## parse xbrl file and get data container
-# xbrl_file_path = "C:\\edinet_xbrl\\xbrl\\jpcrp040300-q1r-001_E01777-000_2019-06-30_01_2019-08-05.xbrl"
 
-# key = "jpcrp_cor:TotalAssetsUSGAAPSummaryOfBusinessResults"
-# context_ref = "Prior1QuarterInstant"
-# current_q1_assets = edinet_xbrl_object.get_data_by_context_ref(key, context_ref).get_value()
-
-# 1e
-# https://www.fsa.go.jp/search/20190228.html
-# for key in edinet_xbrl_object.get_keys():
-#     values = []
-#     for value in edinet_xbrl_object.get_data_list(key):
-#         values.append(value.get_value())
-#     print(key, values)
-
+# パターン1
 # for key in edinet_xbrl_object.get_keys():
 #     for value in edinet_xbrl_object.get_data_list(key):
 #         v_str = value.get_value()
 #         if "対処すべき課題" in str(v_str):
 #             print(key, v_str)
 
-xbrl_file_path = "C:\\edinet_xbrl\\xbrl\\jpcrp030000-asr-001_E01777-000_2019-03-31_02_2019-08-01.xbrl"
-edinet_xbrl_object = parser.parse_file(xbrl_file_path)
+# パターン２
+# targetText = "BusinessPolicyBusinessEnvironmentIssuesToAddressEtcTextBlock".lower()
+# issueKeys = {key for key in edinet_xbrl_object.get_keys() if str(key).__contains__(targetText)}
+#
+# for key in issueKeys:
+#     for value in edinet_xbrl_object.get_data_list(key):
+#         print(value.get_value())
 
-targetText = "BusinessPolicyBusinessEnvironmentIssuesToAddressEtcTextBlock".lower()
-issueKeys = {key for key in edinet_xbrl_object.get_keys() if str(key).__contains__(targetText)}
+# ディレクトリ内のファイル一覧
+xbrl_dir_path = "C:\\edinet_xbrl\\xbrl\\"
 
-for key in issueKeys:
-    for value in edinet_xbrl_object.get_data_list(key):
-        print(value.get_value())
+import os
+files = []
+# r=root, d=directories, f = files
+for r, d, f in os.walk(xbrl_dir_path):
+    for file in f:
+        files.append(os.path.join(r, file))
+
+for f in files:
+    print(f)
+
 
 # TODO
 # 1. fileに書き出す。html形式
