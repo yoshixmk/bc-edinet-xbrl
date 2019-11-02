@@ -9,10 +9,6 @@ from edinet_xbrl.edinet_xbrl_parser import EdinetXbrlParser
 ## init parser
 parser = EdinetXbrlParser()
 
-## target
-# xbrl_file_path = "C:\\edinet_xbrl\\xbrl\\jpcrp030000-asr-001_E01777-000_2019-03-31_02_2019-08-01.xbrl"
-# edinet_xbrl_object = parser.parse_file(xbrl_file_path)
-
 ## parse xbrl file and get data container
 
 # パターン1
@@ -44,9 +40,14 @@ issues_dir_path = "C:\\edinet_xbrl\\issues\\"
 
 from os import listdir
 from os.path import isfile, join
+from string import Template
+
 onlyfiles = [f for f in listdir(xbrl_dir_path) if isfile(join(xbrl_dir_path, f))]
 
 targetText = "BusinessPolicyBusinessEnvironmentIssuesToAddressEtcTextBlock".lower()
+
+template_file = open('edinet_xbrl\\public\\template.html')
+template = Template(template_file.read())
 
 for f in onlyfiles:
     edinet_xbrl_object = parser.parse_file(xbrl_dir_path + f)
@@ -54,7 +55,10 @@ for f in onlyfiles:
     for key in issueKeys:
         for value in edinet_xbrl_object.get_data_list(key):
             text_file = open(issues_dir_path + f + "_issue.html", "w", encoding='UTF-8')
-            text_file.write(value.get_value())
+            d = {'main_contents': value.get_value()}
+            html_result = template.substitute(d)
+            # text_file.write(value.get_value())
+            text_file.write(html_result)
 
 # TODO
 # 2. font-family: &apos;MS Mincho&apos;; 消す
