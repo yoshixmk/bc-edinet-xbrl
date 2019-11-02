@@ -60,6 +60,4 @@ for f in onlyfiles:
             # text_file.write(value.get_value())
             text_file.write(html_result)
 
-# TODO
-# 2. font-family: &apos;MS Mincho&apos;; 消す
-# 3. html, head周りを付与する
+# fontが気になる場合は、font-family: &apos;MS Mincho&apos;; 消す
