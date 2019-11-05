@@ -1,15 +1,20 @@
-import os
-
 from downloader import Downloader
 from extract_parser import ExtractParser
+from models import workspace
 
 if __name__ == '__main__':
-    downloader = Downloader("6758")
+    target_ticker = "6758"
+
+    workspace = workspace.Workspace(
+        "C:\\edinet_xbrl\\xbrl\\" + target_ticker,
+        "C:\\edinet_xbrl\\issues\\" + target_ticker
+    )
+
+    workspace.mkdir()
+
+    downloader = Downloader(target_ticker, workspace)
     downloader.execute()
 
-    parser = ExtractParser("BusinessPolicyBusinessEnvironmentIssuesToAddressEtcTextBlock")
+    parser = ExtractParser("BusinessPolicyBusinessEnvironmentIssuesToAddressEtcTextBlock", workspace)
     parser.execute()
-
-    # new_dir_path = 'data/temp/new-dir'
-    # os.mkdir(new_dir_path)
 

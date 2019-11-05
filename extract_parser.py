@@ -4,18 +4,18 @@ from os.path import isfile, join
 from string import Template
 
 
-class ExtractParser:
-    def __init__(self, target_text):
+class ExtractParser(object):
+    def __init__(self, target_text, workspace):
         self.parser = EdinetXbrlParser()
-        self.xbrl_dir_path = "C:\\edinet_xbrl\\xbrl\\"
-        self.issues_dir_path = "C:\\edinet_xbrl\\issues\\"
+        self.xbrl_dir_path = workspace.downloader_output_dir
+        self.issues_dir_path = workspace.parser_output_dir
         self.target_text = target_text.lower()
 
     # fontが気になる場合は、font-family: &apos;MS Mincho&apos;; 消す
     def execute(self):
         only_files = [f for f in listdir(self.xbrl_dir_path) if isfile(join(self.xbrl_dir_path, f))]
 
-        template_file = open('edinet_xbrl\\public\\template.html')
+        template_file = open('public\\template.html')
         template = Template(template_file.read())
 
         for f in only_files:
