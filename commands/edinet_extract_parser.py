@@ -1,4 +1,4 @@
-from command.command import Command
+from commands.command import Command
 from edinet_xbrl.edinet_xbrl_parser import EdinetXbrlParser
 from os import listdir
 from os.path import isfile, join
@@ -8,8 +8,8 @@ from string import Template
 class EdinetExtractParser(Command):
     def __init__(self, target_text, workspace):
         self.parser = EdinetXbrlParser()
-        self.xbrl_dir_path = workspace.downloader_output_dir
-        self.issues_dir_path = workspace.parser_output_dir
+        self.xbrl_dir_path = workspace.download_file_dir
+        self.issues_dir_path = workspace.output_dir
         self.target_text = target_text.lower()
 
     # fontが気になる場合は、font-family: &apos;MS Mincho&apos;; 消す
