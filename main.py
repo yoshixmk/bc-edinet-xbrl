@@ -1,5 +1,5 @@
-from downloader import Downloader
-from extract_parser import ExtractParser
+from command.edinetdownloader import EdinetDownloader
+from command.edinet_extract_parser import EdinetExtractParser
 from models import workspace
 
 
@@ -19,10 +19,8 @@ if __name__ == '__main__':
 
         w.mkdir()
 
-        print("Downloading...")
-        downloader = Downloader(edinet_code, w)
+        downloader = EdinetDownloader(edinet_code, w)
         downloader.execute()
 
-        print("Parsing...")
-        parser = ExtractParser("BusinessPolicyBusinessEnvironmentIssuesToAddressEtcTextBlock", w)
+        parser = EdinetExtractParser("BusinessPolicyBusinessEnvironmentIssuesToAddressEtcTextBlock", w)
         parser.execute()
